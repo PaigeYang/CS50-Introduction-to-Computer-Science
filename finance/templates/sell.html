@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sell
+{% endblock %}
+
+{% block main %}
+<script>
+    function storage () {
+        localStorage.setItem('sell', 'sold');
+    }
+</script>
+
+    <form action="/sell" method="post" onsubmit="storage()">
+        <div class="form-group">
+          <select class="form-control" name="symbol">
+            <option selected value = "default">Symbol</option>
+
+            {% for row in rows %}
+            <option value="{{ row['symbol'] }}">{{ row["symbol"] }}</option>
+            {% endfor %}
+          </select>
+          <input class="form-control" name="shares" placeholder="Shares" type="number">
+        </div>
+        <button class="btn btn-primary" type="submit">SELL</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Qouted
+{% endblock %}
+
+
+{% block main %}
+
+{% if stock %}
+
+A share of {{ stock['name'] }} ({{ stock['symbol'] }}) costs ${{ stock['price'] }}
+28.00
+
+{% else %}
+
+The stock doesn't exist, please try again
+
+{% endif %}
+
+
+{% endblock %}

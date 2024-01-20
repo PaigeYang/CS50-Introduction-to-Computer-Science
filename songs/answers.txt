@@ -1,0 +1,4 @@
+For the first question, I would write like this
+SELECT AVG(energy), AVG(valence), AVG(danceability) FROM (SELECT * FROM songs ORDER BY times LIMIT 100)
+For the second question, I would write like this
+I would make each song for each aura, and calculate the sum of the auras among 100. Then, I can decide the top two auras.

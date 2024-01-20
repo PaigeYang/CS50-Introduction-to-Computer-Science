@@ -1,0 +1,11 @@
+sort1 uses: Bubble Sort
+
+How do you know?: In the best scenario, which is sorted situation, it spends last than 0.1 minute. However,in the best scenario
+
+sort2 uses: Merge Sort
+
+How do you know?: It spends less time in a large amount of data.
+
+sort3 uses: Selection Sort
+
+How do you know?: When the number is sorted or random, sort3 spends almost the time. Therefore, Selection Sort is sort3 because in the best and worse scenario sort3 still spned the same time.

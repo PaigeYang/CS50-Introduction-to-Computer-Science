@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+<script>
+    function storage_sell () {
+        localStorage.setItem('sell', 'sold');
+    }
+
+    function storage_buy () {
+        localStorage.setItem('buy', 'bought');
+    }
+</script>
+
+
+
+<header>
+    <div class="alert alert-primary" id="update-message" >
+    </div>
+</header>
+
+
+<table class="table table-striped table-dark">
+    <tr>
+        <th>Symbol 112.00</th>
+        <th>Name 9,888.00</th>
+        <th>Shares 56.00</th>
+        <th>Price 9,944.00</th>
+        <th>Total</th>
+        <th>Buy</th>
+        <th>SELL</th>
+    </tr>
+
+    {% for row in rows %}
+    <tr>
+        <td>{{ row["symbol"] }}</td>
+        <td>{{ row["name"] }}</td>
+        <td>{{ row["SUM(shares)"] }}</td>
+        <td>{{ row["current_price"]|round(2,'common') }}</td>
+        <td>{{ row["current_value"]|round(2,'common') }}</td>
+        <td>
+
+                <div class="form-group">
+
+                  <select class="form-control" name="{{ row['symbol'] }}" form="buyin">
+
+                    <option selected value = "Select">Select</option>
+                    {% for i in range(10) %}
+                    <option value="{{ i+1 }}">{{ i+1 }}</option>
+                    {% endfor %}
+
+                  </select>
+
+                </div></td>
+        <td>
+
+                <div class="form-group" name="{{ row['symbol'] }}">
+
+                  <select class="form-control" name="{{ row['symbol'] }}" form="sellout">
+
+                    <option selected value = "Select">Select</option>
+                    {% for i in range(row["SUM(shares)"]) %}
+                    <option value="{{ i+1 }}">{{ i+1 }}</option>
+                    {% endfor %}
+
+                  </select>
+
+                </div></td>
+    </tr>
+    {% endfor %}
+
+    <tr>
+        <td>CASH</td>
+        <td></td><td></td><td></td>
+        <td>{{ cash[0]["cash"]|round(2,'common') }}</td>
+    </tr>
+    <tr>
+        <td></td><td></td><td></td><td></td>
+        <td>{{ total_value|round(2,'common') }}</td>
+    </tr>
+    <tr>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td>
+            <form action="/buyin" method="post" id='buyin' onsubmit="storage_buy ()">
+                <input class="btn btn-primary" type="submit" value="BUY">
+            </form>
+        </td>
+        <td>
+            <form action="/sellout" method="post" id='sellout' onsubmit="storage_sell ()">
+                <input class="btn btn-primary" type="submit" value="SELL">
+            </form>
+        </td>
+
+    </tr>
+
+
+</table>
+{{ row }}
+
+{{portfolio}}
+
+
+<!--Check if user bought or sold the stock-->
+<script>
+    function block () {
+        update = document.getElementById("update-message");
+
+        if (localStorage.getItem('buy') === 'bought')
+        {
+            update.style.visibility="visible";
+            document.getElementById('update-message').innerHTML = "Bought!";
+            localStorage.removeItem("buy");
+        }
+        else if (localStorage.getItem('sell') === 'sold')
+        {
+            update.style.visibility="visible";
+            document.getElementById('update-message').innerHTML = "Sold!";
+            localStorage.removeItem("sell");
+        }
+        else
+        {
+            update.style.visibility="hidden";
+        }
+    }
+    window.onload= block();
+</script>
+{% endblock %}
